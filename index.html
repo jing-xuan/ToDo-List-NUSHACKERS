@@ -1,0 +1,51 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+    <title>
+      Todo List
+    </title>
+  </head>
+  <body>
+    <input id = "newtodo" type = "text" name = "newToDo" placeholder = "Add a todo"></input>
+    <table id = "todolist">
+      <tr>
+        <td>Check emails</td>
+      </tr>
+    </table>
+  </body>
+  <script>
+  $(document).ready(function() {
+    var todos = [{ "item" : "Reply emails", "status" : "0", "priority" : "low"},
+                 { "item" : "Check server status", "status" : "0", "priority" : "low"},
+                 { "item" : "Charge calculator", "status" : "0", "priority" : "low"}];
+    console.log(todos);
+    updateTodo(todos);
+    $('#newtodo').keypress(function(event) {
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (keycode == '13') {
+        var newtodo = {"item" : $('#newtodo').val(), "status" : "0", "priority" : "low"};
+        todos.push(newtodo);
+        console.log(todos);
+        addTodo(todos);
+        $("#newtodo").val("");
+      }
+    });
+
+    function updateTodo(list) {
+      $("#todolist").empty();
+      for (var i = 0; i < Object.keys(list).length; i++) {
+        $("#todolist").append("<tr><td><input type = 'checkbox'>" + list[i]["item"] + "</td></tr>");
+      }
+    }
+
+    function addTodo(list) {
+      $("#todolist").append("<tr><td><input type = 'checkbox'>" + list[Object.keys(list).length - 1]["item"] + "</td></tr>");
+    }
+
+  })
+  </script>
+</html>
